@@ -1,0 +1,1 @@
+include('spider-data-jpa', 'spider-data-kafka', 'spider-data-redis')

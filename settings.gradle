@@ -1,0 +1,2 @@
+include('spider-data:spider-data-jpa', 'spider-data:spider-data-kafka', 'spider-data:spider-data-redis')
+include('spider-web', 'spider-client', 'spider-core', 'spider-proxy')

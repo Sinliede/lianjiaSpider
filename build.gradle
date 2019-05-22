@@ -1,0 +1,39 @@
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'maven'
+  apply plugin: 'eclipse'
+
+  group = 'com.siniliede.spider'
+  version = '0.1.0'
+  
+  targetCompatibility = 1.8
+  [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+  buildDir = 'target'
+
+  ext {
+    mavenPublicUrl = 'http://localhost:8081/repository/maven-public'
+    mavenReleaseUrl = 'http://localhost:8081/repository/maven-releases'
+    mavenSnapshotUrl = 'http://localhost:8081/repository/maven-snapshots'
+  }
+
+  repositories {
+    mavenLocal()
+    maven { url mavenPublicUrl }
+    maven { url mavenReleaseUrl }
+    maven { url mavenSnapshotUrl }
+    mavenCentral()
+  }
+}
+
+subprojects{
+  ext {
+    springBootVersion = '2.0.3.RELEASE'
+    slf4jVersion = '1.7.25'
+  }
+
+  dependencies {
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+
+    testCompile "junit:junit:4.12"
+  }
+}

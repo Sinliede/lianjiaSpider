@@ -1,0 +1,36 @@
+archivesBaseName = 'spider-core'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mavenReleaseUrl) {
+                authentication(userName: 'admin', password: 'admin123')
+            }
+            snapshotRepository(url: mavenSnapshotUrl) {
+                authentication(userName: 'admin', password: 'admin123')
+            }
+        }
+    }
+}
+
+ext {
+    httpclientVersion = '4.5.2'
+    fastJsonVersion = '1.2.54'
+    commonsCodecVersion = '1.11'
+}
+
+dependencies {
+    compile project(':spider-data:spider-data-jpa')
+    compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
+    compile "com.alibaba:fastjson:$fastJsonVersion"
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
+}

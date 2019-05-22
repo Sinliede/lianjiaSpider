@@ -1,0 +1,46 @@
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+applicationName = 'spider-clent'
+
+ext {
+    jsoupVersion = '1.11.3'
+    dubboStarterVersion = '0.1.0'
+}
+
+dependencies {
+    compile "org.jsoup:jsoup:$jsoupVersion"
+    compile "org.springframework.boot:spring-boot-starter"
+    compile "org.springframework.boot:spring-boot-starter-aop"
+    compile "com.sinliede.spring.boot:spring-boot-starter-dubbo:$dubboStarterVersion"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
+
+mainClassName = 'com.sinliede.spider.client.application.Application'
+
+
+buildscript {
+    ext {
+        gradlePluginVersion = '1.0.3.RELEASE'
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "http://nexus.5dg.co/repository/maven-publics" }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("io.spring.gradle:dependency-management-plugin:$gradlePluginVersion")
+    }
+}
+
+
+startScripts {
+    doLast {
+        unixScript.text = unixScript.text.replaceAll(":\\\$APP_HOME/lib/(.*)\n", ":\\\$APP_HOME/lib/\\*\n")
+    }
+}
